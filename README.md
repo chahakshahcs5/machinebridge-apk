@@ -31,19 +31,31 @@ Designed primarily for **non-rooted Android phones** (zero root, zero ADB, zero 
 
 ## Architecture: Consuming the Canonical C++ Engine
 
-```text
-machinebridge-cpp  (Canonical C++ core engine, PTY, protocols, NDK builds)
-       │
-       │ Android NDK build (arm64-v8a in WSL)
-       ▼
-libmachinebridge.so  (Versioned native artifact, 1.39 MB uncompressed)
-       │
-       │ Consumed into machinebridge-apk/app/src/main/jniLibs/arm64-v8a/
-       ▼
-machinebridge-apk  (Lean Management UI, Foreground Service, JNI Bridge, 523 KB APK)
+```mermaid
+flowchart TD
+    CPP["machinebridge-cpp<br/>(Canonical C++ Core Engine, PTY, Protocols, NDK builds)"]
+
+    CPP -->|"NDK Cross-Compile (arm64-v8a)"| SO["libmachinebridge.so<br/>(Versioned native artifact, 1.39 MB uncompressed)"]
+
+    SO -->|"Bundled into jniLibs/arm64-v8a/"| APK["machinebridge-apk<br/>(Lean Management UI, Foreground Service, JNI Bridge, 523 KB APK)"]
 ```
 
 The Android repository contains **zero duplicated C++ source code**. It consumes `libmachinebridge.so` directly into its `jniLibs/arm64-v8a/` directory.
+
+### Service Lifecycle Flow
+
+```mermaid
+flowchart LR
+    STOPPED["STOPPED<br/>• Server inactive<br/>• Zero background battery"]
+    STARTING["STARTING<br/>• Allocates JNI bridge<br/>• Foreground notification"]
+    RUNNING["RUNNING<br/>• Listening on Port 8080<br/>• Tunnel active<br/>• Real-time log stream"]
+    STOPPING["STOPPING<br/>• Detaches tunnel threads<br/>• Flushes ring buffer"]
+
+    STOPPED -->|"Tap START"| STARTING
+    STARTING -->|"Native Ready"| RUNNING
+    RUNNING -->|"Tap STOP"| STOPPING
+    STOPPING -->|"Clean Exit"| STOPPED
+```
 
 ---
 
