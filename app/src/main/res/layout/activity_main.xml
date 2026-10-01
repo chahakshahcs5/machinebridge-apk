@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/svMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1117"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <!-- App Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Machine Bridge"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="High-Performance C++20 Server &amp; Sandbox"
+                    android:textColor="#8B949E"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Status & Badges -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvStatusBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#424242"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="STOPPED"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvEnvBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="#21262D"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="CHECKING..."
+                android:textColor="#8B949E"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tvTunnelBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="#21262D"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="TUNNEL OFF"
+                android:textColor="#8B949E"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Main Control Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#161B22"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOCAL SERVER ENDPOINT"
+                android:textColor="#8B949E"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvServerUrl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="http://0.0.0.0:8080"
+                    android:textColor="#58A6FF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnCopyUrl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="#21262D"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="Copy URL"
+                    android:textColor="#C9D1D9"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- Cloudflare Public Tunnel Card -->
+            <LinearLayout
+                android:id="@+id/llTunnelCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#0D1D30"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CLOUDFLARE PUBLIC TUNNEL"
+                    android:textColor="#388BFD"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTunnelUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Connecting to Cloudflare edge..."
+                    android:textColor="#79C0FF"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnCopyTunnelUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#1F6FEB"
+                    android:minHeight="0dp"
+                    android:text="Copy Public Tunnel URL"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Start / Stop Button -->
+            <Button
+                android:id="@+id/btnStartStop"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="14dp"
+                android:background="#238636"
+                android:text="START SERVER"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Diagnostics Card -->
+        <Button
+            android:id="@+id/btnRunSelfTest"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="10dp"
+            android:background="#1F6FEB"
+            android:minHeight="0dp"
+            android:text="RUN PTY SELF-TEST (SANDBOX DIAGNOSTIC)"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!-- Server & Network Settings Card -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="SERVER &amp; NETWORK CONFIGURATION"
+            android:textColor="#8B949E"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="#161B22"
+            android:orientation="vertical"
+            android:padding="14dp">
+
+            <!-- Port and Host Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Port"
+                        android:textColor="#8B949E"
+                        android:textSize="11sp" />
+
+                    <EditText
+                        android:id="@+id/etPort"
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="4dp"
+                        android:background="#21262D"
+                        android:inputType="number"
+                        android:paddingHorizontal="10dp"
+                        android:text="8080"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bind Host"
+                        android:textColor="#8B949E"
+                        android:textSize="11sp" />
+
+                    <EditText
+                        android:id="@+id/etHost"
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="4dp"
+                        android:background="#21262D"
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:text="0.0.0.0"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- API Key -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="API Key (Bearer Auth)"
+                    android:textColor="#8B949E"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvKeyStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROTECTED"
+                    android:textColor="#58A6FF"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etApiKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="44dp"
+                android:layout_marginTop="4dp"
+                android:background="#21262D"
+                android:fontFamily="monospace"
+                android:typeface="monospace"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="10dp"
+                android:textColor="#58A6FF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:inputType="textNoSuggestions"
+                android:textIsSelectable="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnToggleApiKey"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_weight="1"
+                    android:background="#30363D"
+                    android:minHeight="0dp"
+                    android:text="Show Key"
+                    android:textColor="#C9D1D9"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/btnCopyKey"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="#30363D"
+                    android:minHeight="0dp"
+                    android:text="Copy Key"
+                    android:textColor="#C9D1D9"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/btnRegenKey"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="#30363D"
+                    android:minHeight="0dp"
+                    android:text="Regenerate"
+                    android:textColor="#58A6FF"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- Shell Path & Presets -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Default Shell Path"
+                android:textColor="#8B949E"
+                android:textSize="11sp" />
+
+            <EditText
+                android:id="@+id/etShell"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:background="#21262D"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:text="/system/bin/sh"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnPresetSh"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#30363D"
+                    android:minHeight="0dp"
+                    android:text="Preset: /system/bin/sh"
+                    android:textColor="#8B949E"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/btnPresetTermux"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="#30363D"
+                    android:minHeight="0dp"
+                    android:text="Preset: Termux bash"
+                    android:textColor="#8B949E"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <!-- Workspace Root -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Workspace Directory"
+                android:textColor="#8B949E"
+                android:textSize="11sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/etWorkspace"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="1"
+                    android:background="#21262D"
+                    android:inputType="text"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btnResetWorkspace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="6dp"
+                    android:background="#30363D"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:text="Reset"
+                    android:textColor="#C9D1D9"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Cloudflare Tunnel Card -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="CLOUDFLARE TUNNEL (SECURE PUBLIC ACCESS)"
+            android:textColor="#8B949E"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="#161B22"
+            android:orientation="vertical"
+            android:padding="14dp">
+
+            <CheckBox
+                android:id="@+id/cbTunnel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Enable Cloudflare Tunnel"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="Exposes server to the internet without open ports or firewall configuration."
+                android:textColor="#8B949E"
+                android:textSize="11sp" />
+
+            <!-- Protocol Selection (QUIC vs HTTP/2) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Edge Protocol (QUIC is default UDP; switch to HTTP/2 if UDP blocked):"
+                android:textColor="#8B949E"
+                android:textSize="11sp" />
+
+            <Spinner
+                android:id="@+id/spTunnelProtocol"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="#21262D"
+                android:paddingHorizontal="8dp" />
+
+            <!-- Tunnel Token -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Tunnel Token (Optional):"
+                android:textColor="#8B949E"
+                android:textSize="11sp" />
+
+            <EditText
+                android:id="@+id/etTunnelToken"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:background="#21262D"
+                android:hint="Leave empty for Quick Tunnel (*.trycloudflare.com)"
+                android:inputType="textPassword"
+                android:paddingHorizontal="10dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#484F58"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Advanced Options Card (Collapsible) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#161B22"
+            android:orientation="vertical"
+            android:padding="14dp">
+
+            <LinearLayout
+                android:id="@+id/llAdvancedToggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAdvancedTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ADVANCED CONFIGURATION (TAP TO SHOW)"
+                    android:textColor="#58A6FF"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAdvancedChevron"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▼"
+                    android:textColor="#58A6FF"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llAdvancedContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Log Level -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log Level"
+                    android:textColor="#8B949E"
+                    android:textSize="11sp" />
+
+                <Spinner
+                    android:id="@+id/spLogLevel"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#21262D"
+                    android:paddingHorizontal="8dp" />
+
+                <!-- Max Sessions and TTL Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Max Sessions"
+                            android:textColor="#8B949E"
+                            android:textSize="11sp" />
+
+                        <EditText
+                            android:id="@+id/etMaxSessions"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_marginTop="4dp"
+                            android:background="#21262D"
+                            android:inputType="number"
+                            android:paddingHorizontal="10dp"
+                            android:text="8"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Session TTL (sec)"
+                            android:textColor="#8B949E"
+                            android:textSize="11sp" />
+
+                        <EditText
+                            android:id="@+id/etSessionTtl"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_marginTop="4dp"
+                            android:background="#21262D"
+                            android:inputType="number"
+                            android:paddingHorizontal="10dp"
+                            android:text="3600"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/cbVerboseLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:text="Verbose Logging"
+                    android:textColor="#C9D1D9"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Realtime Console View -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="REALTIME SERVER &amp; TUNNEL CONSOLE"
+                android:textColor="#8B949E"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnCopyLogs"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="#21262D"
+                android:minHeight="0dp"
+                android:paddingHorizontal="8dp"
+                android:text="Copy"
+                android:textColor="#C9D1D9"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnClearLogs"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="6dp"
+                android:background="#21262D"
+                android:minHeight="0dp"
+                android:paddingHorizontal="8dp"
+                android:text="Clear"
+                android:textColor="#C9D1D9"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/svConsoleLog"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="24dp"
+            android:background="#05080C"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:nestedScrollingEnabled="true"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/tvConsoleLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:padding="10dp"
+                android:text="[Ready] Machine Bridge initialized. Press 'START SERVER' to launch.\n"
+                android:textColor="#39D353"
+                android:textSize="11sp" />
+        </ScrollView>
+
+    </LinearLayout>
+</ScrollView>

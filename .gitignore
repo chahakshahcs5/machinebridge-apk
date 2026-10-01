@@ -1,0 +1,34 @@
+# Built application packages & intermediates
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Gradle build cache & generated directories
+.gradle/
+build/
+app/build/
+bin/
+gen/
+out/
+
+# Local SDK configuration (developer specific)
+local.properties
+
+# Android Studio / IntelliJ IDEA
+*.iml
+.idea/
+.navigation/
+captures/
+
+# NDK / CMake temporary build outputs
+.externalNativeBuild/
+.cxx/
+
+# Log files
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
